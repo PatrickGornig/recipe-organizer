@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"></html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <div th:if="${meal.recipeId != null}" class="card mb-3" th:fragment="recipe">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img th:src="${recipeImage}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h2 th:text="${recipe.name}" class="card-title"></h2>
+              <p>URL: <a th:href="${recipe.url}" th:text="${recipe.url}"></a></p>
+              <p th:text="'Difficulty: ' + ${recipe.difficulty}"></p>
+              <p th:text="'Preparation Time: ' + ${recipe.preparationTime}"></p>
+            </div>
+            <div class="card-body">
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+        <div class="row g-0">
+          <div class="col-1"></div>
+          <div class="col-5">
+            <h4 class="card-header">Ingredients</h4>
+            <div class="card">
+              <ul class="list-group list-group-flush" th:each="ingredient : ${recipe.ingredients}">
+                <li class="list-group-item" th:text="${ingredient}"></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-5">
+            <h4 class="card-header">Instructions</h4>
+            <div class="card">
+              <ul class="list-group list-group-flush" th:each="instruction : ${recipe.instructions}">
+                <li class="list-group-item" th:text="${instruction}"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+</body>
+</html>

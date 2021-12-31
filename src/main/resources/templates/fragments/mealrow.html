@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+    <div class="row" th:fragment="mealrow">
+        <div class="col border" th:text=${mealCategory}></div>
+        <div th:each="meal : ${meals}" class="col border">
+            <a th:if="${meal.recipeId} != null" th:href="@{/meal?id={id}(id = ${meal.id})}"
+                th:text="${meal.recipeName}"></a>
+            <a th:unless="${meal.recipeId} != null"
+                th:href="@{/meal?category={category}&date={date}(category = ${meal.mealCategory}, date = ${meal.mealDate})}">Select
+                Meal</a>
+        </div>
+    </div> 
+</body>
+</html>

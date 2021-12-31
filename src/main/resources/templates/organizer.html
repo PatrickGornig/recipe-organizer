@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Meal Planner</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+    <div th:replace="fragments/navigation :: navigation"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                <a th:href="@{/organizer/{week}(week = ${previousWeek})}">Previous week</a>
+            </div>
+            <div class="col-10">
+                <h2 th:text="${currentWeek}">Meal Plan</h2>
+                <div class="container">
+                    <div class="row">
+                        <div class="col border">Meal Category</div>
+                        <div th:each="weekday : ${currentWeekdays}" class="col border" th:text="${weekday}"></div>
+                    </div>
+                    <div th:each="mealCategory : ${mealCategories}" class="row">
+                        <div th:text="${mealCategory}" class="col border"></div>
+                        <div th:each="entry : ${__(${mealCategory})__Meals}" class="col border">
+                                <a th:if="${entry.value.id} != null"
+                                    th:href="@{/meal?id={id}(id = ${entry.value.id})}"
+                                    th:text="${entry.value.recipeName}"></a>
+                                <a th:unless="${entry.value.id} != null"
+                                    th:href="@{/meal?category={category}&date={date}(category = ${entry.value.mealCategory}, date = ${entry.value.mealDate})}" th:text="'Select Meal'"></a>
+                        </div>
+                    </div>
+                    <!--
+                    <div th:each="mealCategory, stat : ${mealsOutput.entrySet}" class="row">
+                        <div th:text="${mealCategory.key}" class="col border"></div>
+                        <div th:each="entry : ${mealCategory.value}" class="col border">
+                            <a th:if="${entry.value.recipeId} != null"
+                                th:href="@{/meal?id={id}(id = ${entry.value.id})}"
+                                th:text="${entry.value.recipeName}"></a>
+                            <a th:unless="${entry.value.recipeId} != null"
+                                th:href="@{/meal?category={category}&date={date}(category = ${entry.value.mealCategory}, date = ${entry.value.mealDate})}">Select
+                                Meal</a>
+                        </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+            <div class="col-1">
+                <a th:href="@{/organizer/{week}(week = ${nextWeek})}">Next week</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
