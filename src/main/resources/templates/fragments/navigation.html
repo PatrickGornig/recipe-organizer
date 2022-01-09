@@ -22,10 +22,13 @@
             <a th:class="${activePage == 'index'} ? 'nav-link active' : 'nav-link'" th:href="@{/}">Home</a>
           </li>
           <li class="nav-item">
-            <a th:class="${activePage == 'organizer'} ? 'nav-link active' : 'nav-link'" th:href="@{/organizer}">Planner</a>
+            <a th:class="${activePage == 'recipes'} ? 'nav-link active' : 'nav-link'" th:href="@{/recipes}">Recipes</a>
           </li>
           <li class="nav-item">
-            <a th:class="${activePage == 'recipes'} ? 'nav-link active' : 'nav-link'" th:href="@{/recipes}">Recipes</a>
+            <a th:class="${activePage == 'meals'} ? 'nav-link active' : 'nav-link'" th:href="@{/meals}">Meals</a>
+          </li>
+          <li class="nav-item">
+            <a th:class="${activePage == 'organizer'} ? 'nav-link active' : 'nav-link'" th:href="@{/organizer}">Weekplan</a>
           </li>
         </ul>
       </div>

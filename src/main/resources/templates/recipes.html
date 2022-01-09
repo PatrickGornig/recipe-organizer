@@ -13,23 +13,6 @@
 <body>
 
     <div th:replace="fragments/navigation :: navigation"></div>
-
-    <main role="main" class="container">
-      <div class="p-5 mb-4 bg-light rounded-3">
-        <div class="input-group">
-          <div class="form-outline">
-            <input id="search-input" type="search" class="form-control" />
-            <label class="form-label" for="form1">Search</label>
-          </div>
-          <button id="search-button" type="button" class="btn btn-primary">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-        <h1>Recipes</h1>
-        <div th:each="recipe : ${recipes}">
-          <div th:text="${recipe.name}"></div>
-        </div>
-      </div>
-    </main>
+    <main th:replace="fragments/recipe_search :: recipe_search"></main>
 </body>
 </html>

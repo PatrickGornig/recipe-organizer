@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+  <div th:fragment="recipe_search">
+    <form>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <button class="btn btn-outline-secondary" type="button" onclick="location.href='/recipes?search='+document.getElementById('search_input').value;">Search</button>
+        </div>
+        <input type="text" id="search_input" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" onkeydown="return (event.keyCode!=13);">
+      </div>
+    </form>
+    <div class="p-5 mb-4 bg-light rounded-3">
+      <div class="container">
+        <div class="row">
+          <h1>Recipes</h1>
+        </div>
+        <div class="row">
+        </div>
+      </div>
+      <div th:each="recipe : ${recipes}">
+        <div th:text="${recipe.name}">
+          <a th:href="@/meal/${meal.id}/recipe/${recipe.id}">Add Recipe</a>
+          <div>test</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

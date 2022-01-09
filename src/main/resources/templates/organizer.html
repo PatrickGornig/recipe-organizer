@@ -12,48 +12,40 @@
 
 <body>
     <div th:replace="fragments/navigation :: navigation"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-1">
-                <a th:href="@{/organizer/{week}(week = ${previousWeek})}">Previous week</a>
-            </div>
-            <div class="col-10">
-                <h2 th:text="${currentWeek}">Meal Plan</h2>
-                <div class="container">
-                    <div class="row">
-                        <div class="col border">Meal Category</div>
-                        <div th:each="weekday : ${currentWeekdays}" class="col border" th:text="${weekday}"></div>
+    <main role="main" class="container">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <a th:href="@{/organizer/{week}(week = ${previousWeek})}">Previous week</a>
                     </div>
-                    <div th:each="mealCategory : ${mealCategories}" class="row">
-                        <div th:text="${mealCategory}" class="col border"></div>
-                        <div th:each="entry : ${__(${mealCategory})__Meals}" class="col border">
-                                <a th:if="${entry.value.id} != null"
-                                    th:href="@{/meal?id={id}(id = ${entry.value.id})}"
-                                    th:text="${entry.value.recipeName}"></a>
-                                <a th:unless="${entry.value.id} != null"
-                                    th:href="@{/meal?category={category}&date={date}(category = ${entry.value.mealCategory}, date = ${entry.value.mealDate})}" th:text="'Select Meal'"></a>
-                        </div>
+                    <div class="col-10">
+                        <h2 th:text="${currentWeek}">Meal Plan</h2>
                     </div>
-                    <!--
-                    <div th:each="mealCategory, stat : ${mealsOutput.entrySet}" class="row">
-                        <div th:text="${mealCategory.key}" class="col border"></div>
-                        <div th:each="entry : ${mealCategory.value}" class="col border">
-                            <a th:if="${entry.value.recipeId} != null"
-                                th:href="@{/meal?id={id}(id = ${entry.value.id})}"
-                                th:text="${entry.value.recipeName}"></a>
-                            <a th:unless="${entry.value.recipeId} != null"
-                                th:href="@{/meal?category={category}&date={date}(category = ${entry.value.mealCategory}, date = ${entry.value.mealDate})}">Select
-                                Meal</a>
-                        </div>
+                    <div class="col-1">
+                        <a th:href="@{/organizer/{week}(week = ${nextWeek})}">Next week</a>
                     </div>
-                    -->
+                </div>
+                <div class="row">
+                    <div class="col border">Meal Category</div>
+                    <div th:each="weekday : ${currentWeekdays}" class="col border" th:text="${weekday}"></div>
+                </div>
+                <div th:each="mealCategory : ${mealCategories}" class="row">
+                    <div th:text="${mealCategory}" class="col border"></div>
+                    <div th:each="entry : ${__(${mealCategory})__Meals}" class="col border">
+                        <a th:if="${entry.value.recipeId} != null" 
+                            th:href="@{/meals/{id}(id = ${entry.value.id})}"
+                            th:text="${entry.value.recipeName}"></a>
+                        <a th:unless="${entry.value.recipeId} != null"
+                            th:href="@{/meals/{id}(id = ${entry.value.id})}"
+                            th:text="'Select Meal'"></a>
+                    </div>
                 </div>
             </div>
-            <div class="col-1">
-                <a th:href="@{/organizer/{week}(week = ${nextWeek})}">Next week</a>
-            </div>
         </div>
-    </div>
+    </main>
+
+
 </body>
 
 </html>

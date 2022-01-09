@@ -21,7 +21,12 @@
 
   <main role="main" class="container">
     <div th:replace="fragments/meal :: meal"></div>
-    <div th:replace="fragments/recipe :: recipe"></div>
+    <div th:if="${meal.recipeId != null}">
+      <div th:replace="fragments/recipe :: recipe"></div>
+    </div>
+    <div th:unless="${meal.recipeId != null}">
+      <div th:replace="fragments/recipe_search"></div>
+    </div>
   </main>
 </body>
 

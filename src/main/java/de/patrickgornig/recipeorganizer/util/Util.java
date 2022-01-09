@@ -3,6 +3,7 @@ package de.patrickgornig.recipeorganizer.util;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 public class Util {
 
@@ -14,5 +15,17 @@ public class Util {
             return localDate.getYear() + week + "";
         }
     }
+
+
+    public static LocalDate getFirstDayOfWeek(int year, int weekNumber) {
+        return getFirstDayOfWeek(year,weekNumber,Locale.GERMANY);
+    } 
+
+    public static LocalDate getFirstDayOfWeek(int year, int weekNumber, Locale locale) {
+        return LocalDate
+                .of(year, 2, 1)
+                .with(WeekFields.of(locale).getFirstDayOfWeek())
+                .with(WeekFields.of(locale).weekOfWeekBasedYear(), weekNumber);
+    } 
     
 }

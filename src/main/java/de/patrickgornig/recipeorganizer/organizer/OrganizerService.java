@@ -39,8 +39,8 @@ RecipeRepository recipeRepository;
 
 @GetMapping(value = "/organizer")
     public String getOrganizerForCurrentWeek(Model model) {
-        LocalDate localDate = LocalDate.now();
-        return "redirect:organizer/" + localDate.getYear() + "/" + localDate.get(WeekFields.ISO.weekOfWeekBasedYear());
+        YearWeek yearWeek = new YearWeek(LocalDate.now());
+        return "redirect:organizer/" + yearWeek.getYear() + "/" + yearWeek.getWeek();
     }
 
 @GetMapping(value = "/organizer/{year}/{week}")
@@ -50,7 +50,6 @@ RecipeRepository recipeRepository;
         List<Meal> meals = mealRepository.findAllByPlanningYearWeek(yearWeek.toString());
         Map<String,Meal> mealsHashMap = new HashMap<>();
         for(Meal meal : meals){
-            System.out.println(meal);
             mealsHashMap.put(meal.getMealCategory() + "_" + meal.getMealDate(), meal);
         }
         System.out.println("Found " + meals.size() + " already assigned meals for the week");
@@ -72,12 +71,13 @@ RecipeRepository recipeRepository;
                     System.out.println("Meal found: " + searchedMeal.getId());
                     mealsOutput.get(mealCategory).put(localDay,searchedMeal);
                 }else{
-                    mealsOutput.get(mealCategory).put(localDay,new Meal(mealCategory,localDay));
+                    Meal newMeal = new Meal(mealCategory,localDay);
+                    mealRepository.save(newMeal);
+                    mealsOutput.get(mealCategory).put(localDay,newMeal);
                 }
             }
         }
-        for(Entry entry : mealsOutput.entrySet()){
-            System.out.println(entry.getKey());
+        for(Entry<MealCategory,TreeMap<LocalDate,Meal>> entry : mealsOutput.entrySet()){
             model.addAttribute(entry.getKey()+"Meals", entry.getValue());
         }
         model.addAttribute("currentWeekdays", currentWeekdays);
