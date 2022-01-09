@@ -1,7 +1,6 @@
 package de.patrickgornig.recipeorganizer.meal;
 
 import java.time.LocalDate;
-import java.time.temporal.WeekFields;
 import java.util.UUID;
 
 import com.datastax.oss.driver.api.core.uuid.Uuids;
@@ -38,6 +37,7 @@ public class Meal {
     @Column("meal_category")
     private MealCategory mealCategory;
 
+    @Indexed
     @Column("meal_date")
     @CassandraType(type = Name.DATE)
     private LocalDate mealDate;
@@ -58,10 +58,11 @@ public class Meal {
     private ServingUnit servingUnit;
 
     public Meal(){
-        id = Uuids.timeBased();
+        this.id = Uuids.timeBased();
     }
 
     public Meal(MealCategory mealCategory, LocalDate mealDate) {
+        this.id = Uuids.timeBased();
         this.mealCategory = mealCategory;
         this.mealDate = mealDate;
         this.planningYearWeek = new YearWeek(mealDate).toString();
